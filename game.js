@@ -8,7 +8,6 @@ const CHARACTERS = [
   ];
    
 
-
 const CHARACTER_IMAGES = {
   katahero: "assets/characters/katahero.png",
   maksi: "assets/characters/maksi.png",
