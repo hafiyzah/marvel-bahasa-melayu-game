@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M.A.R.V.E.L. — Teroka Kata, Bongkar Makna!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- PAPARAN 1: HOME / PLAYER SETUP -->
+    <section id="homeScreen" class="screen active">
+      <div class="home-bg">
+        <div class="brand">
+          <div class="brand-badge">M.A.R.V.E.L.</div>
+          <h1>Teroka Kata,<br><span>Bongkar Makna!</span></h1>
+          <p>Pengembaraan kosa kata Bahasa Melayu Tahun 3</p>
+        </div>
+
+        <div class="setup-panel">
+          <label for="playerName">Nama pemain</label>
+          <input id="playerName" type="text" maxlength="20" placeholder="Contoh: Hafizah" autocomplete="off">
+
+          <div class="section-label">Pilih watak anda</div>
+          <div id="characterGrid" class="character-grid"></div>
+
+          <button id="startButton" class="primary-btn">🚀 MULAKAN MISI</button>
+          <button id="accessibilityButton" class="secondary-btn">⚙️ Aksesibiliti</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCESSIBILITY PANEL -->
+    <div id="accessibilityModal" class="modal hidden">
+      <div class="modal-card">
+        <button class="close-btn" id="closeAccessibility">×</button>
+        <h2>♿ Tetapan Mesra Semua</h2>
+        <p>Laraskan pengalaman permainan mengikut keperluan pemain.</p>
+
+        <label class="setting-row">
+          <span>Saiz teks</span>
+          <select id="fontSizeSetting">
+            <option value="normal">Sederhana</option>
+            <option value="large">Besar</option>
+            <option value="xl">Sangat besar</option>
+          </select>
+        </label>
+
+        <label class="setting-row">
+          <span>Kontras tinggi</span>
+          <input id="contrastSetting" type="checkbox">
+        </label>
+
+        <label class="setting-row">
+          <span>Mod fokus</span>
+          <input id="focusSetting" type="checkbox">
+        </label>
+
+        <label class="setting-row">
+          <span>Arahan audio</span>
+          <input id="audioSetting" type="checkbox" checked>
+        </label>
+
+        <button id="saveAccessibility" class="primary-btn">Simpan tetapan</button>
+      </div>
+    </div>
+
+    <!-- PAPARAN 2: WORLD MAP -->
+    <section id="mapScreen" class="screen">
+      <header class="hud">
+        <div class="hud-player">
+          <div id="hudAvatar" class="hud-avatar"></div>
+          <div>
+            <strong id="hudName">Pemain</strong>
+            <small>Tahun 3 • Pengembara Kata</small>
+          </div>
+        </div>
+        <div class="hud-stats">
+          <span>❤️ <b id="lives">3</b></span>
+          <span>⭐ XP <b id="xp">0</b></span>
+          <span>🪙 <b id="coins">0</b></span>
+          <span>🏅 <b id="badges">0</b></span>
+        </div>
+        <button id="mapSettings" class="hud-btn">⚙️</button>
+      </header>
+
+      <div class="world-wrap">
+        <canvas id="gameCanvas"></canvas>
+        <div id="locationHint" class="location-hint hidden"></div>
+        <div class="mission-progress">
+          <span>Misi <b id="missionNumber">1</b>/6</span>
+          <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+        </div>
+        <div class="movement-help">
+          <b>🎮 Cara bermain</b>
+          <span>Klik bangunan untuk bergerak ke misi</span>
+          <span>atau gunakan WASD / kekunci anak panah</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISSION SCREEN -->
+    <section id="missionScreen" class="screen">
+      <div class="mission-page">
+        <div class="mission-topbar">
+          <button id="backToMap" class="secondary-btn">← Peta Bandar</button>
+          <div id="missionCharacter" class="mission-character"></div>
+          <div class="mission-title-wrap">
+            <div id="missionIcon" class="mission-icon">🏢</div>
+            <div>
+              <div id="missionLocation" class="eyebrow">SYARIKAT</div>
+              <h2 id="missionTitle">Kenali Kata</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="mission-content">
+          <div class="mission-story" id="missionStory"></div>
+          <div id="questionArea" class="question-area"></div>
+          <div id="missionFeedback" class="feedback"></div>
+          <button id="nextQuestion" class="primary-btn hidden">Seterusnya →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- REWARD -->
+    <div id="rewardModal" class="modal hidden">
+      <div class="reward-card">
+        <div class="reward-burst">✨</div>
+        <h2>Misi Selesai!</h2>
+        <p id="rewardText"></p>
+        <div class="reward-items">
+          <span>⭐ +25 XP</span>
+          <span>🪙 +10 Coin</span>
+          <span>🏅 Badge baharu</span>
+        </div>
+        <button id="continueGame" class="primary-btn">Kembali ke Bandar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
