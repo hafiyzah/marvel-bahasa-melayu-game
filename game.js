@@ -5,7 +5,7 @@ const CHARACTERS = [
   { id:"brax", name:"Brax", title:"Slice Makna", icon:"💥", color:"#ff637d", emoji:"💥" },
   { id:"miko", name:"Miko", title:"Micro Meaning", icon:"🔍", color:"#9b7cff", emoji:"🔍" },
   { id:"zappo", name:"Zappo", title:"Thunder Hands", icon:"⚡", color:"#f4c542", emoji:"⚡" }
-
+  ];
    
 
 
