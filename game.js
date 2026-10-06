@@ -5,7 +5,26 @@ const CHARACTERS = [
   { id:"brax", name:"Brax", title:"Slice Makna", icon:"💥", color:"#ff637d", emoji:"💥" },
   { id:"miko", name:"Miko", title:"Micro Meaning", icon:"🔍", color:"#9b7cff", emoji:"🔍" },
   { id:"zappo", name:"Zappo", title:"Thunder Hands", icon:"⚡", color:"#f4c542", emoji:"⚡" }
-];
+
+   
+
+
+const CHARACTER_IMAGES = {
+  katahero: "assets/characters/katahero.png",
+  maksi: "assets/characters/maksi.png",
+  lompi: "assets/characters/lompi.png",
+  brax: "assets/characters/brax.png",
+  miko: "assets/characters/miko.png",
+  zappo: "assets/characters/zappo.png"
+};
+
+const characterImages = {};
+
+Object.entries(CHARACTER_IMAGES).forEach(([id, src]) => {
+  const img = new Image();
+  img.src = src;
+  characterImages[id] = img;
+});
 
 const MISSIONS = [
   {
@@ -88,7 +107,7 @@ function closeAccessibility(){ $("accessibilityModal").classList.add("hidden"); 
 function renderCharacters(){
   $("characterGrid").innerHTML = CHARACTERS.map((c,i)=>`
     <button class="character-card ${i===0?"selected":""}" data-id="${c.id}">
-      <div class="char-art">${c.emoji}</div>
+      <div class="char-art"><img src="${CHARACTER_IMAGES[c.id]}" alt="${c.name}"></div>
       <strong>${c.name}</strong>
       <small>${c.title}</small>
     </button>
@@ -105,7 +124,7 @@ function renderCharacters(){
 function startGame(){
   state.name = $("playerName").value.trim() || "Pengembara";
   $("hudName").textContent = state.name;
-  $("hudAvatar").textContent = state.character.emoji;
+  $("hudAvatar").innerHTML = `<img src="${CHARACTER_IMAGES[state.character.id]}" alt="${state.character.name}">`;
   $("lives").textContent = state.lives;
   $("xp").textContent = state.xp;
   $("coins").textContent = state.coins;
@@ -223,11 +242,28 @@ function drawPlayer(){
   ctx.fillStyle="rgba(0,0,0,.18)";
   ctx.beginPath(); ctx.ellipse(p.x,p.y+23,18,7,0,0,Math.PI*2); ctx.fill();
   // body
-  ctx.fillStyle=state.character.color;
-  ctx.beginPath(); ctx.arc(p.x,p.y,18,0,Math.PI*2); ctx.fill();
-  ctx.fillStyle="#ffd7b0"; ctx.beginPath(); ctx.arc(p.x,p.y-20,13,0,Math.PI*2); ctx.fill();
-  ctx.fillStyle="#172033"; ctx.font="18px sans-serif"; ctx.textAlign="center"; ctx.fillText(state.character.emoji,p.x,p.y+6);
+ const img = characterImages[state.character.id];
+
+  if (img && img.complete) {
+    const size = 64;
+    ctx.drawImage(
+      img,
+      p.x - size / 2,
+      p.y - size + 10,
+      size,
+      size
+    );
+  }
+
   // name tag
+  ctx.fillStyle="rgba(255,255,255,.92)";
+  const label=state.name;
+  ctx.font="800 11px Nunito";
+  const tw=ctx.measureText(label).width+14;
+  ctx.fillRect(p.x-tw/2,p.y-54,tw,20);
+  ctx.fillStyle="#172033";
+  ctx.fillText(label,p.x,p.y-40);
+}
   ctx.fillStyle="rgba(255,255,255,.92)";
   const label=state.name;
   ctx.font="800 11px Nunito";
